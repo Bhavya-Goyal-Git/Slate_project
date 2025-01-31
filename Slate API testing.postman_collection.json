@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "c4123baa-e51f-4fd6-8b93-4aaea6a45f29",
+		"name": "Slate API testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41695025"
+	},
+	"item": [
+		{
+			"name": "User Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"abc@abc.com\",\r\n    \"password\":\"password123\",\r\n    \"name\":\"John Doe\",\r\n    \"role\":\"student\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/signup/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"signup",
+						""
+					]
+				},
+				"description": "### Signup - `POST api/signup/`\n\nThis endpoint is used to create a new user.\n\n#### Request Body:\n- **email**: The user's email address.\n- **password**: The user's password.\n- **name**: The name of the user.\n- **role**: The role of the user. Valid roles are `student`, `parent`, and `school`.\n\n#### Example Request Body:\n```json\n{\n    \"email\": \"student@example.com\",\n    \"password\": \"yourpassword\",\n    \"name\": \"John Doe\",\n    \"role\": \"student\"\n}\n"
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"abc@abc.com\",\r\n    \"password\":\"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login",
+						""
+					]
+				},
+				"description": "### Login - `POST api/login/`\n\nThis endpoint is used to authenticate the user and generate a JWT access token and refresh token.\n\n#### Request Body:\n- **email**: The user's email address.\n- **password**: The user's password.\n\n#### Example Request Body:\n```json\n{\n    \"email\": \"student@example.com\",\n    \"password\": \"yourpassword\"\n}\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Student Achievements",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/student/achievements/1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"student",
+						"achievements",
+						"1",
+						""
+					]
+				},
+				"description": "### Get Student Achievements - `GET api/student/achievements/{student_id}/`\n\nThis endpoint is used to retrieve the achievements of a specific student. Only authenticated users with the roles `student` or `parent` can access it. A student can only view their own achievements, and a parent can view their child's achievements.\n\n#### URL Parameters:\n\n- **student_id**: The ID of the student whose achievements you want to retrieve.\n    \n\n#### Request Headers:\n\n- **Authorization**: Bearer token obtained from login or refresh token request.\n    - Example: `Authorization: Bearer YOUR_ACCESS_TOKEN`\n        \n\n#### Example Request:\n\n``` http\nGET /student/achievements/1/\nAuthorization: Bearer YOUR_ACCESS_TOKEN\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Access Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"refresh\":\"token\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/token/refresh/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"token",
+						"refresh",
+						""
+					]
+				},
+				"description": "### Refresh Token - `POST api/refresh-token/`\n\nThis endpoint is used to refresh the access token using a valid refresh token.\n\n#### Request Body:\n\n- **refresh**: The refresh token obtained from the login endpoint.\n    \n\n#### Example Request Body:\n\n``` json\n{\n    \"refresh\": \"your_refresh_token\"\n}\n\n ```"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "jwt",
+		"jwt": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "algorithm",
+				"value": "HS256",
+				"type": "string"
+			},
+			{
+				"key": "isSecretBase64Encoded",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "payload",
+				"value": "{}",
+				"type": "string"
+			},
+			{
+				"key": "headerPrefix",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "queryParamKey",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "header",
+				"value": "{}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
